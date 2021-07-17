@@ -11,12 +11,12 @@ class CityForecast extends StatefulWidget {
 }
 
 class _CityForecastState extends State<CityForecast> {
-   TextStyle titlestyle =
-      GoogleFonts.adventPro(fontSize: 24, color: Colors.black, fontWeight: FontWeight.bold);
-  TextStyle normalstyle =
-      GoogleFonts.adventPro(fontSize: 20, color: Colors.black, fontWeight: FontWeight.normal);
-   TextStyle tempstyle =
-      GoogleFonts.adventPro(fontSize: 30, color: Colors.black, fontWeight: FontWeight.bold);
+  TextStyle titlestyle = GoogleFonts.adventPro(
+      fontSize: 24, color: Colors.black, fontWeight: FontWeight.bold);
+  TextStyle normalstyle = GoogleFonts.adventPro(
+      fontSize: 20, color: Colors.black, fontWeight: FontWeight.normal);
+  TextStyle tempstyle = GoogleFonts.adventPro(
+      fontSize: 30, color: Colors.black, fontWeight: FontWeight.normal);
 
   final TextEditingController _controller = TextEditingController();
   Future<Album>? _futureAlbum;
@@ -70,27 +70,51 @@ class _CityForecastState extends State<CityForecast> {
       future: _futureAlbum,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return Padding(padding: EdgeInsets.all(10), child: Card(elevation: 5, child: Row(children: [
-            SizedBox(
-              width: 100,
-              height: 100,
-              child: Image.network('http://openweathermap.org/img/wn/${snapshot.data!.weather_icon}@2x.png'),
-            ),
-            Expanded(child: Padding(
-              padding: const EdgeInsets.only(left: 30.0),
-              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text('${snapshot.data!.city_name}', style: titlestyle,),
-                SizedBox(height: 5,),
-                Text('${snapshot.data!.weather_description}', style: normalstyle,),
-              ],),
-            )),
-            Padding(
-              padding: const EdgeInsets.only(right: 8),
-              child: SizedBox(
-                child: Text('${(snapshot.data!.temp - 273.15).toStringAsFixed(2)}', style: tempstyle,),
+          return Padding(
+            padding: EdgeInsets.all(10),
+            child: Card(
+              elevation: 5,
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 100,
+                    height: 100,
+                    child: Image.network(
+                        'http://openweathermap.org/img/wn/${snapshot.data!.weather_icon}@2x.png'),
+                  ),
+                  Expanded(
+                      child: Padding(
+                    padding: const EdgeInsets.only(left: 30.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${snapshot.data!.city_name}',
+                          style: titlestyle,
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          '${snapshot.data!.weather_description}',
+                          style: normalstyle,
+                        ),
+                      ],
+                    ),
+                  )),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: SizedBox(
+                      child: Text(
+                        '${(snapshot.data!.temp - 273.15).toStringAsFixed(0)}\u2103',
+                        style: tempstyle,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],),),);
+          );
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');
         }
