@@ -1,6 +1,6 @@
 # weatherforecast
 
-A new Flutter project.
+A weather forecasting web app !
 
 ## Getting Started
 
